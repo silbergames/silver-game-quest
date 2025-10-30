@@ -8,11 +8,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Search, Heart, ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
-import { InteractivePCFilter } from "@/components/InteractivePCFilter";
 
 const Products = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [visualFilter, setVisualFilter] = useState("");
 
   const categories = [
     { name: "Placas de Vídeo", count: 45 },
@@ -154,11 +152,6 @@ const Products = () => {
                 </div>
               </CardContent>
             </Card>
-
-            {/* Interactive PC Filter */}
-            <div className="mt-4">
-              <InteractivePCFilter onPartClick={setVisualFilter} />
-            </div>
           </aside>
 
           {/* Products Grid */}
