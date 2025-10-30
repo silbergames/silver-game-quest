@@ -10,6 +10,7 @@ import ProductDetail from "./pages/ProductDetail";
 import Services from "./pages/Services";
 import About from "./pages/About";
 import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 import Profile from "./pages/Profile";
 import DigitalProducts from "./pages/DigitalProducts";
 import EventBooking from "./pages/EventBooking";
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/servicos/assistencia" element={<TechnicalSupport />} />
           <Route path="/sobre" element={<About />} />
           <Route path="/carrinho" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/perfil" element={<Profile />} />
           <Route path="/produtos-digitais" element={<DigitalProducts />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

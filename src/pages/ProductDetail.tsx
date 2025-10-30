@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -8,55 +8,53 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Heart, ShoppingCart, Truck, Shield, Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { productsData } from "@/data/products";
+import { toast } from "sonner";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const [quantity, setQuantity] = useState(1);
   const [cep, setCep] = useState("");
+  const [shippingResult, setShippingResult] = useState<any>(null);
+  const [isFavorite, setIsFavorite] = useState(false);
 
-  const product = {
-    id: 1,
-    name: "RTX 4090 24GB GDDR6X",
-    brand: "NVIDIA",
-    price: 12999.99,
-    image: "https://images.unsplash.com/photo-1591488320449-011701bb6704?w=800",
-    rating: 5,
-    reviews: 127,
-    stock: 15,
-    description:
-      "A placa de vídeo mais poderosa do mercado. Ideal para jogos em 4K, ray tracing avançado e trabalhos profissionais de renderização.",
-    specs: [
-      { label: "CUDA Cores", value: "16384" },
-      { label: "Memória", value: "24GB GDDR6X" },
-      { label: "Interface", value: "384-bit" },
-      { label: "Clock Base", value: "2.23 GHz" },
-      { label: "Clock Boost", value: "2.52 GHz" },
-      { label: "TDP", value: "450W" },
-      { label: "Conectores", value: "3x DisplayPort 1.4a, 1x HDMI 2.1" },
-      { label: "Dimensões", value: "304 x 137 x 61 mm" },
-    ],
+  const product = productsData.find((p) => p.id === Number(id));
+
+  if (!product) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navigation />
+        <div className="container mx-auto px-4 py-16 text-center">
+          <h1 className="text-4xl font-bold mb-4">Produto não encontrado</h1>
+          <Link to="/produtos">
+            <Button>Voltar aos Produtos</Button>
+          </Link>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  const handleCalculateShipping = () => {
+    if (!cep || cep.length < 8) {
+      toast.error("Digite um CEP válido");
+      return;
+    }
+    setShippingResult({
+      standard: { days: 5, price: 0 },
+      express: { days: 2, price: 49.90 },
+    });
+    toast.success("Frete calculado!");
   };
 
-  const reviews = [
-    {
-      author: "João Silva",
-      rating: 5,
-      date: "15/01/2025",
-      comment: "Placa excepcional! Roda tudo no ultra em 4K sem esforço.",
-    },
-    {
-      author: "Maria Santos",
-      rating: 5,
-      date: "10/01/2025",
-      comment: "Perfeita para renderização. Reduziu meu tempo de trabalho pela metade!",
-    },
-    {
-      author: "Pedro Costa",
-      rating: 4,
-      date: "05/01/2025",
-      comment: "Ótima placa, mas esquenta bastante. Certifique-se de ter um bom cooler.",
-    },
-  ];
+  const handleAddToCart = () => {
+    toast.success(`${quantity}x ${product.name} adicionado ao carrinho!`);
+  };
+
+  const handleToggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+    toast.success(isFavorite ? "Removido dos favoritos" : "Adicionado aos favoritos!");
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -153,25 +151,54 @@ const ProductDetail = () => {
             <Card>
               <CardContent className="p-4">
                 <label className="font-medium mb-2 block">Calcular Frete:</label>
-                <div className="flex gap-2">
+                <div className="flex gap-2 mb-3">
                   <Input
                     placeholder="Digite seu CEP"
                     value={cep}
-                    onChange={(e) => setCep(e.target.value)}
+                    onChange={(e) => setCep(e.target.value.replace(/\D/g, ""))}
+                    maxLength={8}
                   />
-                  <Button variant="secondary">Calcular</Button>
+                  <Button variant="secondary" onClick={handleCalculateShipping}>
+                    Calcular
+                  </Button>
                 </div>
+                {shippingResult && (
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between p-2 bg-background rounded">
+                      <span>Padrão ({shippingResult.standard.days} dias)</span>
+                      <span className="font-bold text-green-500">
+                        {shippingResult.standard.price === 0
+                          ? "GRÁTIS"
+                          : `R$ ${shippingResult.standard.price.toFixed(2)}`}
+                      </span>
+                    </div>
+                    <div className="flex justify-between p-2 bg-background rounded">
+                      <span>Expresso ({shippingResult.express.days} dias)</span>
+                      <span className="font-bold">
+                        R$ {shippingResult.express.price.toFixed(2)}
+                      </span>
+                    </div>
+                  </div>
+                )}
               </CardContent>
             </Card>
 
             {/* Actions */}
             <div className="flex gap-3">
-              <Button size="lg" className="flex-1 shadow-glow">
+              <Button
+                size="lg"
+                className="flex-1 shadow-glow"
+                onClick={handleAddToCart}
+              >
                 <ShoppingCart className="mr-2 h-5 w-5" />
                 Adicionar ao Carrinho
               </Button>
-              <Button size="lg" variant="secondary">
-                <Heart className="h-5 w-5" />
+              <Button
+                size="lg"
+                variant={isFavorite ? "default" : "secondary"}
+                onClick={handleToggleFavorite}
+              >
+                <Heart className={`h-5 w-5 ${isFavorite ? "fill-current" : ""}`} />
               </Button>
             </div>
 
@@ -217,7 +244,7 @@ const ProductDetail = () => {
           
           <TabsContent value="reviews" className="mt-6">
             <div className="space-y-4">
-              {reviews.map((review, index) => (
+              {product.reviewsList.map((review, index) => (
                 <Card key={index}>
                   <CardContent className="p-6">
                     <div className="flex items-start justify-between mb-3">
@@ -248,8 +275,17 @@ const ProductDetail = () => {
           <TabsContent value="video" className="mt-6">
             <Card>
               <CardContent className="p-6">
-                <div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
-                  <p className="text-muted-foreground">Vídeo do produto em breve</p>
+                <div className="aspect-video rounded-lg overflow-hidden">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src={product.videoUrl}
+                    title={product.name}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full"
+                  />
                 </div>
               </CardContent>
             </Card>

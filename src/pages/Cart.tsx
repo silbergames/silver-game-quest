@@ -131,9 +131,11 @@ const Cart = () => {
                     </span>
                   </div>
 
-                  <Button className="w-full shadow-glow" size="lg">
-                    Finalizar Compra
-                  </Button>
+                  <Link to="/checkout" className="w-full">
+                    <Button className="w-full shadow-glow" size="lg">
+                      Finalizar Compra
+                    </Button>
+                  </Link>
 
                   <Link to="/produtos">
                     <Button variant="secondary" className="w-full">
