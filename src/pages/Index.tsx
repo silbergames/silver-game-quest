@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { Cpu, Gamepad2, Wrench, BookOpen, Trophy, Zap } from "lucide-react";
+import { Cpu, Gamepad2, Wrench, BookOpen, Trophy, Zap, Award, Users, Headphones, ShieldCheck } from "lucide-react";
 import heroImage from "@/assets/hero-gaming-pc.jpg";
 import gameHouseImage from "@/assets/game-house.jpg";
 import pcPartsImage from "@/assets/pc-parts.jpg";
@@ -141,36 +142,137 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="bg-card py-16 border-y border-border">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div className="animate-fade-in">
-              <div className="text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-2">
-                500+
-              </div>
-              <div className="text-muted-foreground">Produtos</div>
+      {/* New Detailed Sections with Tabs */}
+      <section className="container mx-auto px-4 py-16">
+        <Tabs defaultValue="benefits" className="w-full">
+          <TabsList className="grid w-full grid-cols-3 max-w-2xl mx-auto mb-12">
+            <TabsTrigger value="benefits">Diferenciais</TabsTrigger>
+            <TabsTrigger value="stats">Números</TabsTrigger>
+            <TabsTrigger value="support">Suporte</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="benefits" className="space-y-8">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold mb-4">Por que escolher a Silber Games?</h2>
+              <p className="text-muted-foreground">Vantagens exclusivas para você</p>
             </div>
-            <div className="animate-fade-in" style={{ animationDelay: "100ms" }}>
-              <div className="text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-2">
-                1000+
-              </div>
-              <div className="text-muted-foreground">Clientes</div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <Card className="border-primary/20 hover:border-primary transition-all">
+                <CardContent className="p-6 text-center">
+                  <div className="h-12 w-12 mx-auto mb-4 rounded-full bg-gradient-primary flex items-center justify-center">
+                    <Award className="h-6 w-6 text-primary-foreground" />
+                  </div>
+                  <h3 className="font-bold mb-2">Produtos Originais</h3>
+                  <p className="text-sm text-muted-foreground">
+                    100% originais com garantia do fabricante
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="border-primary/20 hover:border-primary transition-all">
+                <CardContent className="p-6 text-center">
+                  <div className="h-12 w-12 mx-auto mb-4 rounded-full bg-gradient-primary flex items-center justify-center">
+                    <Zap className="h-6 w-6 text-primary-foreground" />
+                  </div>
+                  <h3 className="font-bold mb-2">Entrega Rápida</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Receba seus produtos em até 48h
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="border-primary/20 hover:border-primary transition-all">
+                <CardContent className="p-6 text-center">
+                  <div className="h-12 w-12 mx-auto mb-4 rounded-full bg-gradient-primary flex items-center justify-center">
+                    <ShieldCheck className="h-6 w-6 text-primary-foreground" />
+                  </div>
+                  <h3 className="font-bold mb-2">Compra Segura</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Pagamento 100% seguro e protegido
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="border-primary/20 hover:border-primary transition-all">
+                <CardContent className="p-6 text-center">
+                  <div className="h-12 w-12 mx-auto mb-4 rounded-full bg-gradient-primary flex items-center justify-center">
+                    <Users className="h-6 w-6 text-primary-foreground" />
+                  </div>
+                  <h3 className="font-bold mb-2">Comunidade Ativa</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Faça parte da nossa comunidade gamer
+                  </p>
+                </CardContent>
+              </Card>
             </div>
-            <div className="animate-fade-in" style={{ animationDelay: "200ms" }}>
-              <div className="text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-2">
-                20+
-              </div>
-              <div className="text-muted-foreground">PCs de Alto Desempenho</div>
+          </TabsContent>
+
+          <TabsContent value="stats">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold mb-4">Nossa História em Números</h2>
+              <p className="text-muted-foreground">Resultados que comprovam nossa excelência</p>
             </div>
-            <div className="animate-fade-in" style={{ animationDelay: "300ms" }}>
-              <div className="text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-2">
-                24/7
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+              <div className="animate-fade-in">
+                <div className="text-5xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-2">
+                  500+
+                </div>
+                <div className="text-muted-foreground font-medium">Produtos em Estoque</div>
               </div>
-              <div className="text-muted-foreground">Corujão Disponível</div>
+              <div className="animate-fade-in" style={{ animationDelay: "100ms" }}>
+                <div className="text-5xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-2">
+                  1000+
+                </div>
+                <div className="text-muted-foreground font-medium">Clientes Satisfeitos</div>
+              </div>
+              <div className="animate-fade-in" style={{ animationDelay: "200ms" }}>
+                <div className="text-5xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-2">
+                  20+
+                </div>
+                <div className="text-muted-foreground font-medium">PCs na Game House</div>
+              </div>
+              <div className="animate-fade-in" style={{ animationDelay: "300ms" }}>
+                <div className="text-5xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-2">
+                  24/7
+                </div>
+                <div className="text-muted-foreground font-medium">Disponibilidade Corujão</div>
+              </div>
             </div>
-          </div>
-        </div>
+          </TabsContent>
+
+          <TabsContent value="support">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold mb-4">Suporte Completo</h2>
+              <p className="text-muted-foreground">Estamos aqui para ajudar você</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+              <Card className="border-primary/20">
+                <CardContent className="p-6 text-center">
+                  <Headphones className="h-12 w-12 mx-auto mb-4 text-primary" />
+                  <h3 className="font-bold mb-2">Atendimento Especializado</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Nossa equipe está pronta para tirar todas as suas dúvidas
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="border-primary/20">
+                <CardContent className="p-6 text-center">
+                  <Wrench className="h-12 w-12 mx-auto mb-4 text-primary" />
+                  <h3 className="font-bold mb-2">Assistência Técnica</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Manutenção e suporte técnico especializado
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="border-primary/20">
+                <CardContent className="p-6 text-center">
+                  <BookOpen className="h-12 w-12 mx-auto mb-4 text-primary" />
+                  <h3 className="font-bold mb-2">Material Educativo</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Cursos e e-books para você se tornar expert
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+        </Tabs>
       </section>
 
       <Footer />

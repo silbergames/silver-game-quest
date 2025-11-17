@@ -159,9 +159,11 @@ const GameHouse = () => {
               Eventos e Aniversários
             </Button>
           </Link>
-          <Button size="lg" variant="secondary" className="w-full sm:w-auto">
-            Reservar Horário
-          </Button>
+          <Link to="/game-house/reservar">
+            <Button size="lg" variant="secondary" className="w-full sm:w-auto">
+              Reservar Horário
+            </Button>
+          </Link>
         </div>
       </section>
 
