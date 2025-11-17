@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import GameHouse from "./pages/GameHouse";
+import BookingReservation from "./pages/BookingReservation";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
 import Services from "./pages/Services";
@@ -13,6 +14,7 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Profile from "./pages/Profile";
 import DigitalProducts from "./pages/DigitalProducts";
+import DigitalProductDetail from "./pages/DigitalProductDetail";
 import EventBooking from "./pages/EventBooking";
 import ConsultingService from "./pages/ConsultingService";
 import TechnicalSupport from "./pages/TechnicalSupport";
@@ -29,6 +31,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/game-house" element={<GameHouse />} />
+          <Route path="/game-house/reservar" element={<BookingReservation />} />
           <Route path="/game-house/eventos" element={<EventBooking />} />
           <Route path="/produtos" element={<Products />} />
           <Route path="/produtos/:id" element={<ProductDetail />} />
@@ -40,6 +43,7 @@ const App = () => (
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/perfil" element={<Profile />} />
           <Route path="/produtos-digitais" element={<DigitalProducts />} />
+          <Route path="/produtos-digitais/:id" element={<DigitalProductDetail />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
